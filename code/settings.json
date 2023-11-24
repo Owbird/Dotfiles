@@ -1,0 +1,63 @@
+{
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "[python]": {
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "Fira Code",
+  "editor.foldingImportsByDefault": true,
+  "files.autoSave": "onFocusChange",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "window.restoreWindows": "none",
+  "workbench.sideBar.location": "right",
+  "window.menuBarVisibility": "toggle",
+  "window.commandCenter": true,
+
+  "editor.minimap.autohide": true,
+  "editor.minimap.enabled": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.scale": 1,
+  "editor.minimap.showSlider": "mouseover",
+  "editor.minimap.side": "right",
+  "editor.cursorBlinking": "expand",
+  "editor.cursorSmoothCaretAnimation": "explicit",
+  "editor.cursorSurroundingLines": 10,
+  "editor.cursorSurroundingLinesStyle": "default",
+  "workbench.colorCustomizations": {
+    "editorCursor.background": "#ff930f",
+    "editorCursor.foreground": "#ff930f"
+  },
+  "editor.hover.delay": 300,
+  "workbench.hover.delay": 1,
+  "workbench.list.smoothScrolling": true,
+  "editor.fastScrollSensitivity": 5,
+  "editor.smoothScrolling": false,
+  "editor.stickyScroll.enabled": true,
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.trailingComma": "all",
+  "prettier.semi": true,
+  "prettier.singleQuote": false,
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "terminal.integrated.env.linux": {},
+  "console-ninja.featureSet": "Community",
+  "fonted.font": "Fira Code"
+}
