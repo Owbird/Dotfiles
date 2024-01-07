@@ -29,3 +29,5 @@ sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt update && sudo apt upgrade
 sudo apt install fish -y
 sudo chsh -s /usr/bin/fish
+
+sudo apt install neofetch -y
