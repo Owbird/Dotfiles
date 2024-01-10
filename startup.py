@@ -3,7 +3,7 @@ from subprocess import Popen
 
 programs = [
     "spotify",
-    "firefox",
+    "brave-browser",
     "code",
     "gnome-system-monitor"
 ]
