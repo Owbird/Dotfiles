@@ -6,7 +6,9 @@ programs = [
     "brave-browser",
     "code",
     "nautilus",
-    "gnome-system-monitor"
+    "gnome-system-monitor",
+    "telegram-desktop",
+    "whatsdesk"
 ]
 
 for program in programs:
