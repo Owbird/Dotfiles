@@ -5,6 +5,7 @@ programs = [
     "spotify",
     "brave-browser",
     "code",
+    "nautilus",
     "gnome-system-monitor"
 ]
 
