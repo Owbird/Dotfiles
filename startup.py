@@ -12,4 +12,7 @@ programs = [
 ]
 
 for program in programs:
-    Popen(program)
+    try:
+        Popen(program)
+    except:
+        print(f"Couldn't open {program}")
