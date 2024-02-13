@@ -4,5 +4,7 @@
   "theme": "auto",
   "font_face": "Fira Code",
   "font_options": ["gray_antialias"],
-  "index_files": true
+  "index_files": true,
+  "hot_exit": false,
+  "remember_open_files": false
 }
