@@ -8,6 +8,7 @@ set -x ANDROID_HOME ~/Android/Sdk
 set -x FLYCTL_INSTALL ~/.fly
 set -x PATH $FLYCTL_INSTALL/bin $PATH
 set -x PATH ~/Workspace/bin $PATH
+set -x PATH /opt/nvim-linux64/bin $PATH
 
 function fish_greeting
   	 neofetch
