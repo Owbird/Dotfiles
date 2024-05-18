@@ -154,6 +154,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.g.blamer_enabled = true
+vim.g.blamer_relative_time = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -657,6 +660,13 @@ require('lazy').setup({
       },
     },
   },
+
+
+  { "lukas-reineke/indent-blankline.nvim",
+  main="ibl",
+  commit = "29be0919b91fb59eca9e90690d76014233392bef",
+  config = function() require("ibl").setup {} end, },
+
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',

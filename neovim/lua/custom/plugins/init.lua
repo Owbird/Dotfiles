@@ -5,5 +5,7 @@
 return {
   'wakatime/vim-wakatime',
   'prettier/vim-prettier',
-  'catppuccin/nvim'
+  'catppuccin/nvim',
+  'APZelos/blamer.nvim',
+  'lukas-reineke/indent-blankline.nvim'
 }
