@@ -3,12 +3,11 @@ from subprocess import Popen
 
 programs = [
     "spotify",
-    "brave-browser",
-    "code",
-    "nautilus",
-    "gnome-system-monitor",
+    "google-chrome",
     "telegram-desktop",
-    "whatsdesk"
+    "kitty",
+    "lisky-console",
+    "one-dev",
 ]
 
 for program in programs:
