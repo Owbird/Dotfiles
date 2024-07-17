@@ -5,6 +5,7 @@ programs = [
     "spotify",
     "google-chrome",
     "telegram-desktop",
+    "github-desktop",
     "kitty",
     "lisky-console",
     "one-dev",
