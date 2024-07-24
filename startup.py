@@ -8,6 +8,7 @@ programs = [
     "github-desktop",
     "kitty",
     "lisky-console",
+    "whatsdesk",
     "one-dev",
 ]
 
