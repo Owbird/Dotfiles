@@ -18,11 +18,11 @@ for root, folders, files in walk("/home/owbird/Workspace/"):
             folders.remove(folder)
 
         if folder.lower() == project.lower():
-            project_path = join(root, project)
+            project_path = join(root, folder)
             run(["kitty", "@", "launch", "--type=tab", "--cwd",
-                project_path, "--title", project, "nvim", "."])
+                project_path, "--title", folder, "nvim", "."])
             run(["kitty", "@", "resize-window", "-a", "vertical", "-i", "8"])
             run(["kitty", "@", "launch", "--type=window",
-                "--cwd", project_path, "--title", project])
+                "--cwd", project_path, "--title", folder])
             run(["kitty", "@", "launch", "--type=window",
-                "--cwd", project_path, "--title", project])
+                "--cwd", project_path, "--title", folder])
