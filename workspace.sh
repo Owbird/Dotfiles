@@ -1,7 +1,7 @@
 #!/bin/bash
-kitty @ set-tab-title $1
-kitty @ send-text cd ~/Workspace/$1/$2
-kitty @ send-text nvim .
+echo /home/owbird/Workspace/$1/$2
+kitty @ launch --type=tab --cwd=/home/owbird/Workspace/$1/$2 --title=$2 nvim .
 kitty @ resize-window -a vertical -i 8
-kitty @ launch --type=window --cwd=current
-kitty @ launch --type=window --cwd=current
+kitty @ launch --type=window --cwd=/home/owbird/Workspace/$1/$2 --title=$2
+kitty @ launch --type=window --cwd=/home/owbird/Workspace/$1/$2 --title=$2
+
