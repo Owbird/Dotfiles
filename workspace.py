@@ -20,7 +20,9 @@ for root, folders, files in walk("/home/owbird/Workspace/"):
         if folder.lower() == project.lower():
             project_path = join(root, folder)
             run(["kitty", "@", "launch", "--type=tab", "--cwd",
-                project_path, "--title", folder, "nvim", "."])
+                project_path, "--title", folder])
+            run(["kitty", "@", "launch", "--type=overlay",
+                "--cwd", project_path, "fish", "-c",  "nvim", "."])
             run(["kitty", "@", "resize-window", "-a", "vertical", "-i", "8"])
             run(["kitty", "@", "launch", "--type=window",
                 "--cwd", project_path, "--title", folder])
