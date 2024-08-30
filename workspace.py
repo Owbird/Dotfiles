@@ -27,4 +27,4 @@ for root, folders, files in walk("/home/owbird/Workspace/"):
             run(["kitty", "@", "launch", "--type=window",
                 "--cwd", project_path, "--title", folder])
             run(["kitty", "@", "launch", "--type=window",
-                "--cwd", project_path, "--title", folder])
+                "--cwd", project_path, "--title", folder, "lazygit"])
