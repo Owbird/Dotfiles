@@ -5,7 +5,7 @@ programs = [
     "spotify",
     "google-chrome",
     "telegram-desktop",
-    "github-desktop",
+    "notion-snap-reborn",
     "kitty",
     "lisky-console",
     "whatsdesk",
