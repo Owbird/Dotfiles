@@ -23,7 +23,7 @@ for root, folders, files in walk("/home/owbird/Workspace/"):
                 project_path, "--title", folder])
 
             run(["kitty", "@", "launch", "--type=overlay",
-                "--cwd", project_path, "--title", folder, "nvim", ""])
+                "--cwd", project_path, "--title", folder, "fish", "-C",  "nvim"])
 
             run(["kitty", "@", "resize-window", "-a", "vertical", "-i", "8"])
 
