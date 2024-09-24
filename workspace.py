@@ -9,7 +9,8 @@ parser = ArgumentParser()
 
 parser.add_argument("project")
 parser.add_argument("-a", "--all", action="store_true")
-parser.add_argument("-G", "--gh", action="store_true")
+parser.add_argument("-b", "--browse", action="store_true")
+parser.add_argument("-c", "--clone", action="store_true")
 
 args = parser.parse_args()
 
@@ -19,7 +20,12 @@ project = argv[1]
 
 ignore = [".git", "node_modules", "env", "venv", ".next"]
 
-for root, folders, files in walk("/home/owbird/Workspace/"):
+workspace_path = "/home/owbird/Workspace/"
+
+if args.clone:
+    run(["gh", "repo", "clone", project, join(workspace_path, project)])
+
+for root, folders, files in walk(workspace_path):
 
     folders[:] = [folder for folder in folders if folder not in ignore]
 
@@ -28,7 +34,7 @@ for root, folders, files in walk("/home/owbird/Workspace/"):
         if folder.lower() == project.lower():
             project_path = join(root, folder)
 
-            if args.gh:
+            if args.browse:
 
                 res = run(["git", "-C", project_path, "remote",
                           "get-url", "origin"], capture_output=True)
