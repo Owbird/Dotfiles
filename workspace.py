@@ -8,6 +8,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser()
 
 parser.add_argument("project")
+parser.add_argument("cmds", nargs="*")
 parser.add_argument("-a", "--all", action="store_true")
 parser.add_argument("-b", "--browse", action="store_true")
 parser.add_argument("-c", "--clone", action="store_true")
@@ -16,7 +17,7 @@ args = parser.parse_args()
 
 expandvars("$PATH")
 
-project = argv[1]
+project = args.project
 
 ignore = [".git", "node_modules", "env", "venv", ".next"]
 
@@ -46,9 +47,11 @@ for root, folders, files in walk(workspace_path):
                 break
 
             run(["kitty", "@", "launch", "--type=tab", "--cwd",
-                project_path, "--title", folder])
+                 project_path, "--title", folder, "--hold", *args.cmds])
 
             if args.all:
+
+                print(args.cmds)
 
                 run(["kitty", "@", "launch", "--type=overlay",
                     "--cwd", project_path, "--title", folder, "fish", "-C",  "nvim"])
@@ -56,7 +59,7 @@ for root, folders, files in walk(workspace_path):
                 run(["kitty", "@", "resize-window", "-a", "vertical", "-i", "8"])
 
                 run(["kitty", "@", "launch", "--type=window",
-                    "--cwd", project_path, "--title", folder])
+                    "--cwd", project_path, "--title", folder, "--hold", *args.cmds])
 
                 run(["kitty", "@", "launch", "--type=window",
                      "--cwd", project_path, "--title", folder])
