@@ -2,7 +2,6 @@
 from os.path import expandvars, join
 from os import walk
 from subprocess import run
-from sys import argv
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
@@ -46,15 +45,10 @@ for root, folders, files in walk(workspace_path):
 
                 break
 
-            run(["kitty", "@", "launch", "--type=tab", "--cwd",
-                 project_path, "--title", folder, "--hold", *args.cmds])
-
             if args.all:
 
-                print(args.cmds)
-
-                run(["kitty", "@", "launch", "--type=overlay",
-                    "--cwd", project_path, "--title", folder, "fish", "-C",  "nvim"])
+                run(["kitty", "@", "launch", "--type=tab",
+                    "--cwd", project_path, "--title", folder, "--hold",  "nvim"])
 
                 run(["kitty", "@", "resize-window", "-a", "vertical", "-i", "8"])
 
@@ -65,9 +59,9 @@ for root, folders, files in walk(workspace_path):
                      "--cwd", project_path, "--title", folder])
 
                 run(["kitty", "@", "launch", "--type=window",
-                     "--cwd", project_path, "--title", folder])
-
-                run(["kitty", "@", "launch", "--type=overlay",
-                    "--cwd", project_path, "--title", folder, "lazygit", "status"])
+                    "--cwd", project_path, "--title", folder, "--hold", "lazygit", "status"])
+            else:
+                run(["kitty", "@", "launch", "--type=tab", "--cwd",
+                     project_path, "--title", folder, "--hold", *args.cmds])
 
             break
