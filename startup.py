@@ -5,11 +5,8 @@ programs = [
     "spotify",
     "google-chrome",
     "telegram-desktop",
-    "notion-snap-reborn",
     "kitty",
-    "lisky-console",
     "whatsdesk",
-    "one-dev",
 ]
 
 for program in programs:
