@@ -22,7 +22,9 @@ webapps = {
     "wa": "https://web.whatsapp.com/",
     "yt": "https://www.youtube.com/",
     "mail": "https://mail.google.com/",
-    "claude": "https://claude.ai/"
+    "claude": "https://claude.ai/",
+    "ddev": "https://app.daily.dev/?pwa=true",
+    "exdraw": "https://excalidraw.com/"
 }
 
 apps = {
