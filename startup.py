@@ -1,16 +1,13 @@
 #!/usr/bin/python3
 from subprocess import Popen
+from time import sleep
 
 programs = [
-    "spotify",
-    "google-chrome",
-    "telegram-desktop",
-    "kitty",
-    "whatsdesk",
+    "music",
+    "browser",
+    "code",
 ]
 
 for program in programs:
-    try:
-        Popen(program)
-    except:
-        print(f"Couldn't open {program}")
+    Popen(["apps.py", program])
+    sleep(3)
