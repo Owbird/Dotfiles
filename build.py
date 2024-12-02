@@ -4,6 +4,7 @@ from subprocess import run
 user_path = expanduser("~")
 
 scripts = [
+    "mic",
     "apps",
     "light",
     "startup",
