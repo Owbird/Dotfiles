@@ -10,4 +10,4 @@ programs = [
 
 for program in programs:
     Popen(["apps.py", program])
-    sleep(3)
+    sleep(10)
