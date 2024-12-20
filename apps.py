@@ -28,6 +28,7 @@ webapps = {
 }
 
 apps = {
+    "htop": {"index": 0, "app": "htop", "args": []},
     "browser": {"index": 1, "app": "google-chrome", "args": []},
     "code": {"index": 2, "app": "kitty", "args": []},
     "music": {"index": 3, "app": "spotify", "args": []},
