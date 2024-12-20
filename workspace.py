@@ -1,6 +1,7 @@
 #!/bin/python3
 from os.path import expandvars, join
 from os import walk
+from getpass import getuser
 from subprocess import run
 from argparse import ArgumentParser
 
@@ -20,7 +21,7 @@ project = args.project
 
 ignore = [".git", "node_modules", "env", "venv", ".next"]
 
-workspace_path = "/home/owbird/Workspace/"
+workspace_path = f"/home/{getuser()}/Workspace/"
 
 if args.clone:
     run(["gh", "repo", "clone", project, join(workspace_path, project)])
