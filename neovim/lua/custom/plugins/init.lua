@@ -7,5 +7,9 @@ return {
   'prettier/vim-prettier',
   'catppuccin/nvim',
   'APZelos/blamer.nvim',
-  'lukas-reineke/indent-blankline.nvim'
+  'lukas-reineke/indent-blankline.nvim',
+  'Exafunction/codeium.vim',
+  'lvimuser/lsp-inlayhints.nvim',
+  'nvim-tree/nvim-tree.lua',
+  'davidmh/mdx.nvim'
 }
