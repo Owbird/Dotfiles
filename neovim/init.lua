@@ -115,6 +115,9 @@ vim.opt.showmode = false
 --  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
 
+-- set shell
+vim.o.shell = '/usr/bin/fish'
+
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -165,7 +168,7 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Select actuall
-vim.keymap.set('n', '<leader>a', 'G$vgg0',{desc = "Select [A]ll lines"})
+vim.keymap.set('n', '<leader>a', 'G$vgg0', { desc = 'Select [A]ll lines' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -174,12 +177,11 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagn
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Switching buffers
--- vim.keymap.set('n', '<leader>nb', builtin.bnext, { desc = '[N]ext buffer' })
--- vim.keymap.set('n', '<leader>np', builtin.bnext, { desc = '[P]revious buffer' })
 vim.keymap.set('n', '<leader>n', '<cmd>bnext<CR>', { desc = '[N]ext buffer' })
-vim.keymap.set('n', '<leader>b', '<cmd>bprevious<CR>',{ desc = '[P]revious buffer' })
-
-
+vim.keymap.set('n', '<leader>b', '<cmd>bprevious<CR>', { desc = '[P]revious buffer' })
+vim.keymap.set('n', '<leader>de', '<cmd>Explore<CR>', { desc = '[E]xplore netrw' })
+vim.keymap.set('n', '<leader>dt', '<cmd>NvimTreeOpen<CR>', { desc = 'Explore [T]' })
+vim.keymap.set('n', '<leader>cc', '<cmd>bufdo bd<CR>', { desc = '[C]lear all buffers' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -254,6 +256,11 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
+  {
+    'Exafunction/codeium.vim',
+    event = 'BufEnter',
+  },
+
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
@@ -310,6 +317,18 @@ require('lazy').setup({
   -- you do for a plugin at the top level, you can do for a dependency.
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
+
+  {
+  "nvim-tree/nvim-tree.lua",
+  version = "*",
+  lazy = false,
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+  config = function()
+    require("nvim-tree").setup {}
+  end,
+},
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
@@ -594,7 +613,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'tsserver',
+        'ts_ls',
         'gopls',
         'prettier',
       })
@@ -615,6 +634,12 @@ require('lazy').setup({
     end,
   },
 
+  {
+  "davidmh/mdx.nvim",
+  config = true,
+  dependencies = {"nvim-treesitter/nvim-treesitter"}
+},
+
   { -- Autoformat
     'stevearc/conform.nvim',
     lazy = false,
@@ -630,16 +655,16 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        return {
-          timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-        }
-      end,
+--       format_on_save = function(bufnr)
+--         -- Disable "format_on_save lsp_fallback" for languages that don't
+--         -- have a well standardized coding style. You can add additional
+--         -- languages here or re-enable it for the disabled ones.
+--         local disable_filetypes = { c = true, cpp = true }
+--         return {
+--           timeout_ms = 500,
+--           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+--         }
+--       end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -647,26 +672,29 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        typescript =  { 'prettierd', "prettier"  },
-        typescriptreact =  { 'prettierd', "prettier"  },
-        javascript = {  'prettierd', "prettier"  },
-        javascriptreact =  { 'prettierd', "prettier"  },
-        svelte =  { 'prettierd', "prettier"  },
-        json = {  'prettierd', "prettier" } ,
-        html = { 'prettierd', "prettier"  },
-        css = {  'prettierd', "prettier"  },
-        go = {  'gopls', "gofumpt", "goimports"  },
-
+        typescript = { 'prettierd', 'prettier' },
+        typescriptreact = { 'prettierd', 'prettier' },
+        javascript = { 'prettierd', 'prettier' },
+        javascriptreact = { 'prettierd', 'prettier' },
+        svelte = { 'prettierd', 'prettier' },
+        json = { 'prettierd', 'prettier' },
+        html = { 'prettierd', 'prettier' },
+        json = { 'prettierd', 'prettier' },
+        jsonc = { 'prettierd', 'prettier' },
+        css = { 'prettierd', 'prettier' },
+        go = { 'gopls', 'gofumpt', 'goimports' },
       },
     },
   },
 
-
-  { "lukas-reineke/indent-blankline.nvim",
-  main="ibl",
-  commit = "29be0919b91fb59eca9e90690d76014233392bef",
-  config = function() require("ibl").setup {} end, },
-
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    commit = '29be0919b91fb59eca9e90690d76014233392bef',
+    config = function()
+      require('ibl').setup {}
+    end,
+  },
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -788,6 +816,11 @@ require('lazy').setup({
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+      vim.cmd [[
+    highlight Normal ctermbg=none guibg=none
+    highlight NormalNC ctermbg=none guibg=none
+    highlight NonText ctermbg=none guibg=none
+]]
     end,
   },
 
