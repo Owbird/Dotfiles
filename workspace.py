@@ -1,9 +1,10 @@
 #!/bin/python3
 from os.path import expandvars, join
-from os import walk,environ
+from os import walk, environ
 from getpass import getuser
 from subprocess import run
 from argparse import ArgumentParser
+from time import sleep
 
 parser = ArgumentParser()
 
@@ -58,19 +59,29 @@ for root, folders, files in walk(workspace_path):
                     print("Cant find nvim")
                     exit(1)
 
-                run(["kitty", "@", "launch", "--type=tab",
-                    "--cwd", project_path, "--title", folder, "--hold", f"{nvim_path}/nvim"])
+                run(["kitty", "@", "launch", "--type=tab", "--cwd",
+                    project_path, "--title", folder, "--hold", "tmux",
+                     "new", "-A", "-s", f"{folder}", "-n", "code"])
 
-                run(["kitty", "@", "resize-window", "-a", "vertical", "-i", "8"])
+                sleep(2)
 
-                run(["kitty", "@", "launch", "--type=window",
-                    "--cwd", project_path, "--title", folder, "--hold", *args.cmds])
+                run([
+                    "tmux", "send-keys", "-t", f"{
+                        folder}:0", "nvim .", "Enter"
+                ])
 
-                run(["kitty", "@", "launch", "--type=window",
-                     "--cwd", project_path, "--title", folder])
+                for i, t in enumerate(["runner", "misc", "git"], start=1):
+                    run([
+                        "tmux", "new-window", "-t", f"{
+                            folder}:{i}", "-n", f"{t}", "-c", project_path
+                    ])
 
-                run(["kitty", "@", "launch", "--type=window",
-                    "--cwd", project_path, "--title", folder, "--hold", "lazygit", "status"])
+                    if t == "git":
+                        sleep(1)
+                        run([
+                            "tmux", "send-keys", "-t", f"{
+                                folder}:{i}", "lazygit status", "Enter"
+                        ])
             else:
                 run(["kitty", "@", "launch", "--type=tab", "--cwd",
                      project_path, "--title", folder, "--hold", *args.cmds])
