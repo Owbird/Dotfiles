@@ -14,17 +14,17 @@ completions = list(set(completions))
 completions = [f"'{comp}'" for comp in completions]
 
 file = f"""
-# ~/.config/fish/completions/workspace.py.fish
+# ~/.config/fish/completions/ws.fish
 
-function __fish_workspace_py_complete
+function __fish_ws_complete
     set -l opts {' '.join(completions)}
     for opt in $opts
         echo $opt
     end
 end
 
-complete -c workspace.py -f -a "(__fish_workspace_py_complete)"
+complete -c ws -f -a "(__fish_ws_complete)"
 """
 
-with open("/home/owbird/.config/fish/completions/workspace.py.fish", "w") as f:
+with open("/home/owbird/.config/fish/completions/ws.fish", "w") as f:
     f.write(file)
