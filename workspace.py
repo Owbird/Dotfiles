@@ -1,6 +1,6 @@
 #!/bin/python3
 from os.path import expandvars, join
-from os import walk, environ
+from os import walk, environ, listdir
 from getpass import getuser
 from subprocess import run
 from argparse import ArgumentParser
@@ -13,6 +13,7 @@ parser.add_argument("cmds", nargs="*")
 parser.add_argument("-a", "--all", action="store_true")
 parser.add_argument("-b", "--browse", action="store_true")
 parser.add_argument("-c", "--clone", action="store_true")
+parser.add_argument("-g", "--git", action="store_true")
 
 args = parser.parse_args()
 
@@ -49,15 +50,9 @@ for root, folders, files in walk(workspace_path):
 
             if args.all:
 
-                nvim_path = None
-                for path in vars.split(":"):
-                    if "nvim" in path:
-                        nvim_path = path
-                        break
+                dirs = listdir(project_path)
 
-                if not nvim_path:
-                    print("Cant find nvim")
-                    exit(1)
+                if args.git and not ".git" in dirs: break
 
                 run(["kitty", "@", "launch", "--type=tab", "--cwd",
                     project_path, "--title", folder, "--hold", "tmux",
