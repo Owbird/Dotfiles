@@ -75,7 +75,7 @@ for root, folders, files in walk(workspace_path):
                         sleep(1)
                         run([
                             "tmux", "send-keys", "-t", f"{
-                                folder}:{i}", "lazygit status", "Enter"
+                                folder}:{i}", "lazygit", "Enter"
                         ])
             else:
                 run(["kitty", "@", "launch", "--type=tab", "--cwd",
