@@ -29,10 +29,10 @@ webapps = {
 
 apps = {
     "htop": {"index": 0, "app": "htop", "args": []},
-    "browser": {"index": 1, "app": "google-chrome", "args": []},
+    "browser": {"index": 1, "app": "brave-browser", "args": []},
     "code": {"index": 2, "app": "kitty", "args": []},
     "music": {"index": 3, "app": "spotify", "args": []},
-    "app": {"index": 4, "app": "google-chrome", "args": [f"--app={webapps.get(args.webapp)}"]},
+    "app": {"index": 4, "app": "brave-browser", "args": [f"--app={webapps.get(args.webapp)}"]},
 }
 
 run(["wmctrl", "-s", str(apps[args.type]["index"])])

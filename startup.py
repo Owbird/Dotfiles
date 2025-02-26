@@ -3,7 +3,7 @@ from subprocess import Popen
 from time import sleep
 
 programs = [
-    "htop"
+    "htop",
     "music",
     "browser",
     "code",
