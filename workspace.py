@@ -1,10 +1,9 @@
 #!/bin/python3
 from os.path import expandvars, join
-from os import walk, environ, listdir
+from os import walk,environ
 from getpass import getuser
 from subprocess import run
 from argparse import ArgumentParser
-from time import sleep
 
 parser = ArgumentParser()
 
@@ -50,33 +49,29 @@ for root, folders, files in walk(workspace_path):
 
             if args.all:
 
-                dirs = listdir(project_path)
+                nvim_path = None
+                for path in vars.split(":"):
+                    if "nvim" in path:
+                        nvim_path = path
+                        break
 
-                if args.git and not ".git" in dirs: break
+                if not nvim_path:
+                    print("Cant find nvim")
+                    exit(1)
 
-                run(["kitty", "@", "launch", "--type=tab", "--cwd",
-                    project_path, "--title", folder, "--hold", "tmux",
-                     "new", "-A", "-s", f"{folder}", "-n", "code"])
+                run(["kitty", "@", "launch", "--type=tab",
+                    "--cwd", project_path, "--title", folder, "--hold", f"{nvim_path}/nvim"])
 
-                sleep(2)
+                run(["kitty", "@", "resize-window", "-a", "vertical", "-i", "8"])
 
-                run([
-                    "tmux", "send-keys", "-t", f"{
-                        folder}:0", "nvim .", "Enter"
-                ])
+                run(["kitty", "@", "launch", "--type=window",
+                    "--cwd", project_path, "--title", folder, "--hold", *args.cmds])
 
-                for i, t in enumerate(["runner", "misc", "git"], start=1):
-                    run([
-                        "tmux", "new-window", "-t", f"{
-                            folder}:{i}", "-n", f"{t}", "-c", project_path
-                    ])
+                run(["kitty", "@", "launch", "--type=window",
+                     "--cwd", project_path, "--title", folder])
 
-                    if t == "git":
-                        sleep(1)
-                        run([
-                            "tmux", "send-keys", "-t", f"{
-                                folder}:{i}", "lazygit", "Enter"
-                        ])
+                run(["kitty", "@", "launch", "--type=window",
+                    "--cwd", project_path, "--title", folder, "--hold", "lazygit", "status"])
             else:
                 run(["kitty", "@", "launch", "--type=tab", "--cwd",
                      project_path, "--title", folder, "--hold", *args.cmds])
