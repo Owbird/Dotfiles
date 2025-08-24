@@ -21,3 +21,5 @@ function fish_greeting
 	fnm env --use-on-cd --shell fish | source
     end
 set -gx PATH /usr/pgsql-17/bin $PATH
+
+export XTERM=kitty
