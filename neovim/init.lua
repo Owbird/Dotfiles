@@ -181,6 +181,7 @@ vim.keymap.set('n', '<leader>n', '<cmd>bnext<CR>', { desc = '[N]ext buffer' })
 vim.keymap.set('n', '<leader>b', '<cmd>bprevious<CR>', { desc = '[P]revious buffer' })
 vim.keymap.set('n', '<leader>de', '<cmd>Explore<CR>', { desc = '[E]xplore netrw' })
 vim.keymap.set('n', '<leader>dt', '<cmd>NvimTreeOpen<CR>', { desc = 'Explore [T]' })
+vim.keymap.set('n', '<leader>dr', '<cmd>NvimTreeFindFile<CR>', { desc = '[R]eveal current file' })
 vim.keymap.set('n', '<leader>cc', '<cmd>bufdo bd<CR>', { desc = '[C]lear all buffers' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -326,7 +327,12 @@ require('lazy').setup({
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    require("nvim-tree").setup {}
+    require("nvim-tree").setup {
+      renderer = {
+        group_empty = true,
+      },
+      view = {},
+    }
   end,
 },
 
@@ -820,6 +826,9 @@ require('lazy').setup({
     highlight Normal ctermbg=none guibg=none
     highlight NormalNC ctermbg=none guibg=none
     highlight NonText ctermbg=none guibg=none
+    highlight NvimTreeNormal ctermbg=none guibg=none
+    highlight LineNr guifg=#C6D0F5
+    highlight CursorLineNr guifg=#E98989
 ]]
     end,
   },
