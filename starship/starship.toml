@@ -6,8 +6,14 @@ add_newline = false
 
 # A single-line prompt
 format = '''
-[╭─](bold green)[ $directory](bold blue)$git_branch$git_status
+[╭─](bold green)[ $directory](bold blue) $hostname $git_branch$git_status
 [╰─](bold green)$character'''
+
+[hostname]
+ssh_only = false
+disabled = false
+style = "bold yellow"
+format = "on [$hostname]($style)"
 
 [character]
 success_symbol = '[➜](bold green)'

@@ -20,6 +20,17 @@ function fish_greeting
     alias ls='exa -b  --long --grid --icons --git'
 	fnm env --use-on-cd --shell fish | source
     end
+
+function tses
+    if test (count $argv) -eq 0
+        echo "Usage: tses <session-name>"
+        return 1
+    end
+
+    tmux attach -t $argv[1] 2>/dev/null; or tmux new -s $argv[1]
+end
+
+
 set -gx PATH /usr/pgsql-17/bin $PATH
 
 export XTERM=kitty
