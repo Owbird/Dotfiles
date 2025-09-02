@@ -33,4 +33,4 @@ end
 
 set -gx PATH /usr/pgsql-17/bin $PATH
 
-export XTERM=kitty
+export TERM=kitty
