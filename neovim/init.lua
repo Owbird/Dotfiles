@@ -181,7 +181,6 @@ vim.keymap.set('n', '<leader>n', '<cmd>bnext<CR>', { desc = '[N]ext buffer' })
 vim.keymap.set('n', '<leader>b', '<cmd>bprevious<CR>', { desc = '[P]revious buffer' })
 vim.keymap.set('n', '<leader>de', '<cmd>Explore<CR>', { desc = '[E]xplore netrw' })
 vim.keymap.set('n', '<leader>dt', '<cmd>NvimTreeOpen<CR>', { desc = 'Explore [T]' })
-vim.keymap.set('n', '<leader>dr', '<cmd>NvimTreeFindFile<CR>', { desc = '[R]eveal current file' })
 vim.keymap.set('n', '<leader>cc', '<cmd>bufdo bd<CR>', { desc = '[C]lear all buffers' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -327,12 +326,7 @@ require('lazy').setup({
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    require("nvim-tree").setup {
-      renderer = {
-        group_empty = true,
-      },
-      view = {},
-    }
+    require("nvim-tree").setup {}
   end,
 },
 
@@ -619,7 +613,6 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'tsserver',
         'gopls',
         'prettier',
       })
@@ -814,10 +807,13 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    config = function()
+      require('catppuccin').setup({
+        transparent_background = true,
+        integrations = {
+          nvimtree = true,
+        },
+      })
       vim.cmd.colorscheme 'catppuccin-frappe'
 
       -- You can configure highlights by doing something like:
@@ -826,9 +822,6 @@ require('lazy').setup({
     highlight Normal ctermbg=none guibg=none
     highlight NormalNC ctermbg=none guibg=none
     highlight NonText ctermbg=none guibg=none
-    highlight NvimTreeNormal ctermbg=none guibg=none
-    highlight LineNr guifg=#C6D0F5
-    highlight CursorLineNr guifg=#E98989
 ]]
     end,
   },
