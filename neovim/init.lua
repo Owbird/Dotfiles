@@ -257,6 +257,22 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
 
   {
+    'nvim-mini/mini.surround',
+    version = false,
+    opts = {
+      mappings = {
+        add = 'gsa',
+        delete = 'gsd',
+        replace = 'gsr',
+        find = 'gsf',
+        find_left = 'gsF',
+        highlight = 'gsh',
+        update_n_lines = 'gsn',
+      },
+    },
+  },
+
+  {
     'Exafunction/codeium.vim',
     event = 'BufEnter',
   },
@@ -319,16 +335,20 @@ require('lazy').setup({
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
   {
-  "nvim-tree/nvim-tree.lua",
-  version = "*",
-  lazy = false,
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    lazy = false,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('nvim-tree').setup {
+        view = {
+          side = 'right',
+        },
+      }
+    end,
   },
-  config = function()
-    require("nvim-tree").setup {}
-  end,
-},
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
@@ -634,10 +654,10 @@ require('lazy').setup({
   },
 
   {
-  "davidmh/mdx.nvim",
-  config = true,
-  dependencies = {"nvim-treesitter/nvim-treesitter"}
-},
+    'davidmh/mdx.nvim',
+    config = true,
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  },
 
   { -- Autoformat
     'stevearc/conform.nvim',
@@ -654,16 +674,16 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
---       format_on_save = function(bufnr)
---         -- Disable "format_on_save lsp_fallback" for languages that don't
---         -- have a well standardized coding style. You can add additional
---         -- languages here or re-enable it for the disabled ones.
---         local disable_filetypes = { c = true, cpp = true }
---         return {
---           timeout_ms = 500,
---           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
---         }
---       end,
+      --       format_on_save = function(bufnr)
+      --         -- Disable "format_on_save lsp_fallback" for languages that don't
+      --         -- have a well standardized coding style. You can add additional
+      --         -- languages here or re-enable it for the disabled ones.
+      --         local disable_filetypes = { c = true, cpp = true }
+      --         return {
+      --           timeout_ms = 500,
+      --           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+      --         }
+      --       end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -808,16 +828,19 @@ require('lazy').setup({
     'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      require('catppuccin').setup({
+      require('catppuccin').setup {
         transparent_background = true,
         integrations = {
           nvimtree = true,
         },
-      })
+      }
       vim.cmd.colorscheme 'catppuccin-frappe'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+      vim.api.nvim_set_hl(0, 'LineNr', { fg = '#89b4fa', bg = 'none' })
+      vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#f5c2e7', bg = '#313244', bold = true })
+      vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#313244' })
       vim.cmd [[
     highlight Normal ctermbg=none guibg=none
     highlight NormalNC ctermbg=none guibg=none
@@ -828,6 +851,16 @@ require('lazy').setup({
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+
+  {
+    'nvim-flutter/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
+},
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',

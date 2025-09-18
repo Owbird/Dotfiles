@@ -11,5 +11,7 @@ return {
   'Exafunction/codeium.vim',
   'lvimuser/lsp-inlayhints.nvim',
   'nvim-tree/nvim-tree.lua',
-  'davidmh/mdx.nvim'
+  'davidmh/mdx.nvim',
+  'nvim-mini/mini.surround',
+  'nvim-flutter/flutter-tools.nvim',
 }

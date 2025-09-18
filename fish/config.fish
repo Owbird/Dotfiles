@@ -12,6 +12,8 @@ set -x PATH /opt/nvim-linux64/bin $PATH
 set -x PATH ~/.bun/bin $PATH
 set -x PATH ~/.local/share/fnm $PATH
 set -x PATH ~/.local/share/pnpm $PATH
+set -x PATH $HOME/.cargo/bin $PATH
+set -x PATH $HOME/.pub-cache/bin $PATH
 
 function fish_greeting
     # fastfetch --logo ~/.config/fish/ascii.txt
@@ -33,4 +35,12 @@ end
 
 set -gx PATH /usr/pgsql-17/bin $PATH
 
-export TERM=xterm-256color
+export XTERM=kitty
+
+# pnpm
+set -gx PNPM_HOME "/home/owbird/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+set -gx PATH /opt/android-studio/bin $PATH
