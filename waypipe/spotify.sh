@@ -1,0 +1,1 @@
+spotify --ozone-platform=wayland --enable-features=UseOzonePlatform
