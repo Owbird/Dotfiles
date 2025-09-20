@@ -11,7 +11,8 @@ scripts = {
     "workspace.py": "ws",
     "workspace_completion.py": "wsc",
     "waypipe/chrome.sh": "chrome",
-    "waypipe/zen.sh": "zen"
+    "waypipe/zen.sh": "zen",
+    "waypipe/spotify.sh": "sptfy"
 }
 
 for script, label in scripts.items():
