@@ -4,12 +4,14 @@ from subprocess import run
 user_path = expanduser("~")
 
 scripts = {
-    "mic.py":"mic",
+    "mic.py": "mic",
     "apps.py": "apps",
     "light.py": "light",
     "startup.py": "startup",
     "workspace.py": "ws",
-    "workspace_completion.py": "wsc"
+    "workspace_completion.py": "wsc",
+    "waypipe/chrome.sh": "chrome",
+    "waypipe/zen.sh": "zen"
 }
 
 for script, label in scripts.items():
