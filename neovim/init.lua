@@ -160,6 +160,87 @@ vim.opt.scrolloff = 10
 vim.g.blamer_enabled = true
 vim.g.blamer_relative_time = true
 
+-- [[ File Marks Configuration ]]
+-- Enhanced file marks (global marks) support
+-- Set common file marks with leader key combinations
+vim.keymap.set('n', '<leader>mf', function()
+  local char = vim.fn.getcharstr()
+  if char:match('[A-Z]') then
+    vim.cmd('normal! m' .. char)
+    print('File mark ' .. char .. ' set in ' .. vim.fn.expand('%:t'))
+  else
+    print('File marks use uppercase letters A-Z')
+  end
+end, { desc = 'Set [f]ile mark' })
+
+-- Quick file mark shortcuts for commonly used files
+vim.keymap.set('n', '<leader>mC', 'mC', { desc = 'Set file mark C (Config)' })
+vim.keymap.set('n', '<leader>mR', 'mR', { desc = 'Set file mark R (README)' })
+vim.keymap.set('n', '<leader>mM', 'mM', { desc = 'Set file mark M (Main)' })
+vim.keymap.set('n', '<leader>mT', 'mT', { desc = 'Set file mark T (Test)' })
+
+-- Show all marks with Telescope (custom picker)
+vim.keymap.set('n', '<leader>sm', function()
+  local builtin = require('telescope.builtin')
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
+  local pickers = require('telescope.pickers')
+  local finders = require('telescope.finders')
+  local conf = require('telescope.config').values
+  
+  -- Get all marks
+  local marks_output = vim.fn.execute('marks')
+  local marks = {}
+  
+  for line in marks_output:gmatch('[^\n]+') do
+local mark, line_num, col, text = line:match([[^%s*([A-Za-z0-9'"`%.%[%]%<>%^])%s+(%d+)%s+(%d+)%s*(.*)]])
+    if mark and line_num then
+      local file_path = ""
+      if text:match('^/') then
+        file_path = text
+        text = "[File: " .. vim.fn.fnamemodify(text, ':t') .. "]"
+      else
+        file_path = vim.fn.expand('%')
+        text = text or ""
+      end
+      
+      table.insert(marks, {
+        mark = mark,
+        line = tonumber(line_num),
+        col = tonumber(col),
+        text = text,
+        file_path = file_path,
+        display = string.format("%-3s %4d:%-3d %s", mark, line_num, col, text)
+      })
+    end
+  end
+  
+  pickers.new({}, {
+    prompt_title = 'Marks',
+    finder = finders.new_table({
+      results = marks,
+      entry_maker = function(entry)
+        return {
+          value = entry,
+          display = entry.display,
+          ordinal = entry.mark .. " " .. entry.text,
+        }
+      end,
+    }),
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        local selection = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        
+        -- Jump to the mark
+        vim.cmd("normal! '" .. selection.value.mark)
+      end)
+      return true
+    end,
+  }):find()
+end, { desc = '[S]how [m]arks with Telescope' })
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -320,6 +401,8 @@ require('lazy').setup({
       require('which-key').register {
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+        ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
+        ['<leader>m'] = { name = '[M]arks', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
@@ -400,11 +483,12 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          winblend = 0,
+          -- mappings = {
+          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          -- },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -832,6 +916,9 @@ require('lazy').setup({
         transparent_background = true,
         integrations = {
           nvimtree = true,
+          telescope = {
+            enabled = true,
+          },
         },
       }
       vim.cmd.colorscheme 'catppuccin-frappe'
@@ -845,6 +932,14 @@ require('lazy').setup({
     highlight Normal ctermbg=none guibg=none
     highlight NormalNC ctermbg=none guibg=none
     highlight NonText ctermbg=none guibg=none
+    highlight TelescopeNormal guibg=none
+    highlight TelescopeBorder guibg=none
+    highlight TelescopePromptNormal guibg=none
+    highlight TelescopePromptBorder guibg=none
+    highlight TelescopeResultsNormal guibg=none
+    highlight TelescopeResultsBorder guibg=none
+    highlight TelescopePreviewNormal guibg=none
+    highlight TelescopePreviewBorder guibg=none
 ]]
     end,
   },
