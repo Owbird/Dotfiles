@@ -10,11 +10,6 @@ echo "[+] Starting cleanup..."
 echo "[*] Disk usage BEFORE cleanup:"
 check_space
 
-# 1. Clean DNF cache
-echo "[*] Cleaning DNF cache..."
-sudo dnf clean all
-sudo rm -rf /var/cache/dnf
-
 # 2. Remove old kernels
 echo "[*] Removing old kernels..."
 sudo dnf remove -y $(dnf repoquery --installonly --latest-limit=-2 -q) || true
