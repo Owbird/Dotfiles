@@ -257,6 +257,17 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Find and Replace keymaps
+-- Basic find and replace in current buffer
+vim.keymap.set('n', '<leader>fr', ':%s/', { desc = '[F]ind and [R]eplace in buffer' })
+vim.keymap.set('v', '<leader>fr', ':s/', { desc = '[F]ind and [R]eplace in selection' })
+
+-- Find and replace word under cursor in buffer
+vim.keymap.set('n', '<leader>fw', ':%s/<C-r><C-w>/<C-r><C-w>/g<Left><Left>', { desc = '[F]ind and replace current [W]ord' })
+
+-- Case-insensitive find and replace
+vim.keymap.set('n', '<leader>fi', ':%s//Ig<Left><Left><Left>', { desc = '[F]ind and replace [I]gnore case' })
+
 -- Switching buffers
 vim.keymap.set('n', '<leader>n', '<cmd>bnext<CR>', { desc = '[N]ext buffer' })
 vim.keymap.set('n', '<leader>b', '<cmd>bprevious<CR>', { desc = '[P]revious buffer' })
@@ -401,6 +412,7 @@ require('lazy').setup({
       require('which-key').register {
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+        ['<leader>f'] = { name = '[F]ind & Replace', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
         ['<leader>m'] = { name = '[M]arks', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
