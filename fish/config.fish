@@ -35,7 +35,7 @@ end
 
 set -gx PATH /usr/pgsql-17/bin $PATH
 
-export XTERM=kitty
+export TERM=xterm-256color
 
 # pnpm
 set -gx PNPM_HOME "/home/owbird/.local/share/pnpm"
