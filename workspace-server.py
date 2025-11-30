@@ -43,7 +43,7 @@ for root, folders, files in walk(workspace_path):
 
                 sleep(0.2)
 
-                run(["tmux", "send-keys", "-t", f"{session}:0", "nvim .", "Enter"])
+                run(["tmux", "send-keys", "-t", f"{session}:0", "nvim", "Enter"])
 
                 for i, t in enumerate(["runner", "misc", "git"], start=1):
                     run([
