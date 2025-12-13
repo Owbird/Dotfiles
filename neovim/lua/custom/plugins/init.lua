@@ -3,6 +3,7 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  'MeanderingProgrammer/render-markdown.nvim',
   'wakatime/vim-wakatime',
   'prettier/vim-prettier',
   'catppuccin/nvim',
