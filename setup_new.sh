@@ -2,9 +2,7 @@ curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 
 sudo ln -s ~/.local/kitty.app/bin/kitty /usr/local/bin/
 
-
 cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-
 
 cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
 
@@ -22,23 +20,12 @@ curl -sS https://starship.rs/install.sh | sh
 
 touch ~/.config/starship.toml
 
-wget -c http://old-releases.ubuntu.com/ubuntu/pool/universe/r/rust-exa/exa_0.9.0-4_amd64.deb
-sudo apt-get install ./exa_0.9.0-4_amd64.deb
+sudo apt install eza -y
 
 sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt update && sudo apt upgrade
 sudo apt install fish -y
 sudo chsh -s /usr/bin/fish
-
-sudo apt install neofetch -y
-
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
-sudo apt update
-
-sudo apt install brave-browser
 
 sudo apt install git
 
@@ -53,5 +40,24 @@ sudo apt update
 sudo apt install code
 
 
-curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install nodejs -y
+curl -fsSL https://fnm.vercel.app/install | bash
+
+fnm use v20
+
+wget https://go.dev/dl/go1.26.0.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.26.0.linux-amd64.tar.gz
+
+(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
+	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& sudo apt update \
+	&& sudo apt install gh -y
+	
+sudo apt update
+sudo apt install gh
+
+go install github.com/jesseduffield/lazygit@latest
