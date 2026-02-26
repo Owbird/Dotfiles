@@ -9,6 +9,7 @@ scripts = {
     "light.py": "light",
     "startup.py": "startup",
     "workspace.py": "ws",
+    "nu.sh": "nu",
     "workspace_completion.py": "wsc",
     "waypipe/chrome.sh": "chrome",
     "waypipe/zen.sh": "zen",
