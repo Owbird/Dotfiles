@@ -46,15 +46,17 @@ style = "dimmed green"
 format = "[ $duration]($style)"
 
 [hostname]
-ssh_only = false
+ssh_only = true
 style = "dimmed white"
-format = "[$hostname]($style) in "
+ssh_symbol = "ssh"
+format = "[@$ssh_symbol:$hostname]($style) in "
+
 
 [username]
 show_always = true
 style_user = "bold #00e676"
 style_root = "bold red"
-format = "[$user]($style)[@](dimmed white)"
+format = "[$user]($style)"
 
 [python]
 symbol = " "
