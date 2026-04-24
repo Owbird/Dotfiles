@@ -1,0 +1,103 @@
+* {
+    bg:             #0d1117d9;
+    bg-alt:         #131922f2;
+    fg:             #e6edf3ff;
+    fg-muted:       #9aa7b7ff;
+    border:         #8ca8c42e;
+    accent:         #7dd3fcff;
+    accent-2:       #5eead4ff;
+    urgent:         #f38ba8ff;
+    selected:       #1f2734f5;
+
+    background-color: transparent;
+    text-color: @fg;
+    border-color: @border;
+    font: "IosevkaTerm Nerd Font 12";
+}
+
+window {
+    width: 44%;
+    location: center;
+    anchor: center;
+    transparency: "real";
+    background-color: @bg;
+    border: 2px;
+    border-radius: 24px;
+    padding: 28px;
+}
+
+mainbox {
+    spacing: 18px;
+    children: [ "inputbar", "mode-switcher", "listview" ];
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border: 1px;
+    border-radius: 18px;
+    padding: 14px 18px;
+    spacing: 12px;
+    children: [ "prompt", "entry" ];
+}
+
+prompt {
+    text-color: @accent;
+    str: "";
+}
+
+entry {
+    placeholder: "Search apps, commands, and windows";
+    placeholder-color: @fg-muted;
+}
+
+mode-switcher {
+    spacing: 10px;
+}
+
+button {
+    padding: 10px 16px;
+    border-radius: 999px;
+    background-color: @bg-alt;
+    text-color: @fg-muted;
+}
+
+button selected {
+    background-color: @selected;
+    text-color: @accent;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    fixed-height: false;
+    dynamic: true;
+    scrollbar: false;
+    spacing: 8px;
+}
+
+element {
+    background-color: transparent;
+    text-color: @fg;
+    border-radius: 16px;
+    padding: 12px 14px;
+}
+
+element normal.urgent,
+element selected.urgent {
+    text-color: @urgent;
+}
+
+element selected.normal {
+    background-color: @selected;
+    text-color: @accent-2;
+}
+
+element-icon {
+    size: 1.1em;
+    vertical-align: 0.5;
+    margin: 0 14px 0 0;
+}
+
+element-text {
+    vertical-align: 0.5;
+}
