@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Server setup script - CLI tools only, no GUI applications
-
 # Update system
 sudo apt update && sudo apt upgrade -y
+
+sudo apt install build-essential unzip
 
 # Install git
 sudo apt install git -y
